@@ -1,23 +1,68 @@
 from datetime import date, datetime
 
+import pytest
+
 from sprint_report import Issue, Sprint, build_report, build_summary, calculate_business_days, detect_blockers, detect_risks, normalize_status
 
 
-def test_story_point_totals_and_completion():
-    issues = [
-        Issue(key="KAN-1", summary="A", status="Done", assignee="Sam", story_points=5, status_category="Done"),
-        Issue(key="KAN-2", summary="B", status="In Progress", assignee="Ava", story_points=3, status_category="In Progress"),
-        Issue(key="KAN-3", summary="C", status="To Do", assignee="Sam", story_points=None, status_category="To Do"),
-    ]
-    sprint = Sprint(name="Sprint 18", start_date="2026-09-01", end_date="2026-09-15", project_key="KAN")
-    report = build_report(issues, sprint=sprint, last_refresh=datetime(2026, 9, 9, 8, 0, 0))
-    summary = report["summary"]
+@pytest.mark.parametrize(
+    ("issues", "expected"),
+    [
+        pytest.param(
+            [
+                Issue(key="KAN-1", summary="Done", story_points=5, status_category="Done"),
+                Issue(key="KAN-2", summary="In progress", story_points=3, status_category="In Progress"),
+                Issue(key="KAN-3", summary="Missing", story_points=None, status_category="To Do"),
+            ],
+            {
+                "total_committed_story_points": 8.0,
+                "completed_story_points": 5.0,
+                "remaining_story_points": 3.0,
+                "completion_pct": 62.5,
+                "total_issues": 3,
+                "issues_completed": 1,
+                "unestimated_issue_count": 1,
+            },
+            id="returns expected metrics for mixed estimated and missing points",
+        ),
+        pytest.param(
+            [
+                Issue(key="KAN-4", summary="Zero", story_points=0, status_category="To Do"),
+                Issue(key="KAN-5", summary="Completed", story_points=1, status_category="Done"),
+            ],
+            {
+                "total_committed_story_points": 1.0,
+                "completed_story_points": 1.0,
+                "remaining_story_points": 0.0,
+                "completion_pct": 100.0,
+                "total_issues": 2,
+                "issues_completed": 1,
+                "unestimated_issue_count": 1,
+            },
+            id="returns expected metrics for zero-point issues",
+        ),
+    ],
+)
+def test_returns_expected_story_point_metrics_for_each_case(issues, expected):
+    summary = build_summary(issues)
 
-    assert summary["total_committed_story_points"] == 8.0
-    assert summary["completed_story_points"] == 5.0
-    assert summary["remaining_story_points"] == 3.0
-    assert summary["completion_pct"] == 62.5
-    assert summary["unestimated_issue_count"] == 1
+    for metric, value in expected.items():
+        assert summary[metric] == value
+
+
+def test_returns_expected_metrics_for_filtered_subset():
+    issues = [
+        Issue(key="KAN-6", summary="Sam done", assignee="Sam", story_points=5, status_category="Done"),
+        Issue(key="KAN-7", summary="Ava in progress", assignee="Ava", story_points=3, status_category="In Progress"),
+    ]
+
+    report = build_report(issues, filters={"assignee": "Sam"})
+
+    assert report["filtered_subset"] is True
+    assert report["summary"]["total_committed_story_points"] == 5.0
+    assert report["summary"]["completed_story_points"] == 5.0
+    assert report["summary"]["remaining_story_points"] == 0.0
+    assert report["summary"]["total_issues"] == 1
 
 
 def test_status_mapping_and_blockers():
