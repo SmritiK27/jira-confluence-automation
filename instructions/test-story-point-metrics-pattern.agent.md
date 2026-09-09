@@ -1,8 +1,9 @@
 # Story Point and Summary Metrics Test Pattern
 
-- Use the existing unit-test framework and keep coverage focused on the metric logic.
+- Follow [Shared Unit Test Pattern](./shared-unit-test-pattern.agent.md).
+- Keep coverage focused on the metric logic.
 - Treat this as a table-driven test pattern: one scenario covers one expected result.
-- Keep assertions explicit and avoid broad snapshots.
+- Avoid broad snapshots.
 
 ## Input format
 - Provide a list of issue fixtures in structured form.
@@ -26,8 +27,7 @@
 - Prefer a compact table of cases over repeated custom setup code.
 
 ## Constraints
-- Do not test UI rendering, API transport, or Jira integration in this pattern.
+
 - Do not use hard-coded values that hide the business rule being tested.
-- Keep each test independent and deterministic.
 - Cover only the metric logic directly affected by the issue.
 - Ensure tests fail clearly when the formula changes unexpectedly.

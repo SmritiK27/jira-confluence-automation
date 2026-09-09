@@ -1,8 +1,8 @@
 # Forecast Calculation Test Pattern
 
-- Use the existing unit-test framework and target pure forecast logic only.
+- Follow [Shared Unit Test Pattern](./shared-unit-test-pattern.agent.md).
+- Target pure forecast logic only.
 - Validate one formula across many edge conditions using a repeated scenario pattern.
-- Keep test names explicit about the sprint state being modeled.
 
 ## Input format
 - Provide sprint input data in a simple structured object.
@@ -25,8 +25,8 @@
 - Keep results readable and minimal.
 
 ## Constraints
-- Do not include UI, API call, or network assumptions in this pattern.
+
 - Do not mix unrelated business rules into the same test case.
-- Keep calculations deterministic and timezone-aware when required.
+- Keep calculations timezone-aware when required.
 - Treat zero values as intentional scenarios, not missing data.
 - Ensure each edge case is covered explicitly rather than relying on a single happy-path test.

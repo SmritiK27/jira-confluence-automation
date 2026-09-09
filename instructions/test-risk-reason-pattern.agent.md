@@ -1,6 +1,7 @@
 # Risk Reason Test Pattern
 
-- Use the existing unit-test framework and test one risk rule at a time before testing combinations.
+- Follow [Shared Unit Test Pattern](./shared-unit-test-pattern.agent.md).
+- Test one risk rule at a time before testing combinations.
 - Treat this as a deterministic rule-evaluation workflow, not a data-collection workflow.
 - Keep the expected reason list concise and fully traceable to the input conditions.
 
@@ -25,8 +26,7 @@
 - Keep output compact and easy to review in a table-driven format.
 
 ## Constraints
-- Do not validate UI behavior in this pattern.
+
 - Do not allow hidden state or ordering assumptions to drive the expected results.
 - Ensure the same issue can trigger multiple reasons without causing collisions or omission.
-- Keep inputs deterministic and based on clear dates and statuses.
 - Avoid broad integration tests when the risk classification itself is the target behavior.
