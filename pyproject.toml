@@ -1,0 +1,14 @@
+[project]
+name = "sprint-report"
+version = "0.1.0"
+description = "Jira sprint report aggregation library"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

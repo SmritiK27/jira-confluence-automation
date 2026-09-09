@@ -11,9 +11,4 @@
 - When the task is ambiguous, ask a single clarifying question rather than making assumptions.
 - Preserve existing project conventions and avoid introducing new dependencies unless required.
 - If a fix is required, patch the root cause and verify the result.
-- Follow [creating-instructions.agent.md](./creating-instructions.agent.md) when creating or updating instruction files.
-- Use the following pattern-specific instruction files for repeated validation workflows:
-  - [Story point and summary metrics test pattern](./test-story-point-metrics-pattern.agent.md)
-  - [Forecast calculation test pattern](./test-forecast-calculation-pattern.agent.md)
-  - [Risk reason test pattern](./test-risk-reason-pattern.agent.md)
 - Summarize outcomes clearly at the end of the task.
