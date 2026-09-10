@@ -118,7 +118,7 @@ Command:
 
 ```bash
 python3 tools/validate_instructions.py \
-  --pattern 'instructions/validate-instructions.agent.md' \
+  --pattern 'instructions/*-pattern.agent.md' \
   --cli-command echo \
   --output-dir /tmp/module-15-validation
 ```
@@ -127,6 +127,9 @@ Output:
 
 ```text
 Target files:
-- instructions/validate-instructions.agent.md
-Processed 1 file(s); results are in /tmp/module-15-validation/.
+- instructions/shared-unit-test-pattern.agent.md
+- instructions/test-forecast-calculation-pattern.agent.md
+- instructions/test-risk-reason-pattern.agent.md
+- instructions/test-story-point-metrics-pattern.agent.md
+Processed 4 file(s); results are in /tmp/module-15-validation/.
 ```

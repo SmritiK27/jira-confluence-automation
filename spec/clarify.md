@@ -352,3 +352,21 @@ Resolve these first because they change architecture and acceptance tests:
    through F-15).
 6. Operational, accessibility, performance, and deployment targets.
 
+## Resolved Decisions
+
+### C-01 / C-02 / X-01: Release scope and write permissions
+
+- Release one is **Jira-only**.
+- Jira access is read-only and uses the authenticated user's Atlassian
+  permissions.
+- Release one does not integrate with Confluence and does not create or update
+  Jira issues, comments, labels, links, workflow state, or notifications.
+- Application-owned persistence is allowed for sessions, configuration,
+  short-lived cache/refresh state, and safe operational telemetry, subject to
+  retention and authorization rules.
+- The constitution remains project-wide; Confluence automation is future scope
+  and is not part of this release's specification, APIs, or acceptance tests.
+
+The specification's release scope and non-goals are the authoritative
+implementation boundary for this release. Remaining clarification items are
+still open.

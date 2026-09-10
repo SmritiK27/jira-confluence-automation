@@ -2,8 +2,9 @@
 
 ## 1. Plan Status and Baseline
 
-- **Status:** Proposed; implementation is blocked until the clarification
-  decisions in [`spec/clarify.md`](./clarify.md) are accepted.
+- **Status:** Proposed; release scope is approved, but implementation is
+  blocked until the remaining clarification decisions in
+  [`spec/clarify.md`](./clarify.md) are accepted.
 - **Specification:** [`spec/specification.md`](./specification.md)
 - **Constitution:** [`spec/constitution.md`](./constitution.md)
 - **Target stack:** React 18 + Vite, Node.js + Express, PostgreSQL 15,
@@ -58,27 +59,27 @@ or acceptance tests.
 
 ### Required decisions
 
-1. Confirm whether release one is Jira-only or includes Confluence automation.
-2. Resolve “read-only” versus any permitted Confluence publication writes.
-3. Define tenant model, project configuration ownership, and admin roles.
-4. Select Atlassian OAuth scopes, PKCE/state requirements, token storage,
-   refresh/revocation, session lifetime, and logout behavior.
-5. Select Jira REST/Agile API versions, endpoints, fields, field-discovery
-   strategy, pagination, and changelog retrieval.
-6. Define cache isolation, TTL, eviction, invalidation, and permission context.
-7. Approve versioned JSON/TypeScript schemas for success and error responses.
-8. Decide PostgreSQL persistence, migrations, retention, and deletion rules.
-9. Define exact sprint-time, forecast, story-point, status, blocker, risk, and
-   filter semantics.
-10. Set response-time, availability, browser, accessibility, logging, backup,
+1. Define tenant model, project configuration ownership, and admin roles.
+2. Select Atlassian OAuth scopes, PKCE/state requirements, token storage,
+    refresh/revocation, session lifetime, and logout behavior.
+3. Select Jira REST/Agile API versions, endpoints, fields, field-discovery
+    strategy, pagination, and changelog retrieval.
+4. Define cache isolation, TTL, eviction, invalidation, and permission context.
+5. Approve versioned JSON/TypeScript schemas for success and error responses.
+6. Decide PostgreSQL persistence, migrations, retention, and deletion rules.
+7. Define exact sprint-time, forecast, story-point, status, blocker, risk, and
+    filter semantics.
+8. Set response-time, availability, browser, accessibility, logging, backup,
     and disaster-recovery targets.
 
 ### Milestone M0: Specification baseline approved
 
 **Exit criteria**
 
-- All critical items C-01 through C-08 in `spec/clarify.md` have decisions.
-- Contradictions X-01 through X-05 are resolved or explicitly accepted.
+- The release-scope decisions C-01, C-02, and X-01 are recorded and reflected
+  in the specification.
+- Remaining critical items C-03 through C-08 and contradictions X-02 through
+  X-05 are resolved or explicitly accepted.
 - Decisions are reflected in the specification and API/data contracts.
 - Product owner, security owner, and technical owner approve the baseline.
 

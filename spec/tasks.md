@@ -14,15 +14,16 @@
 
 ### T-001 — Resolve release scope and write permissions
 
+- **Status:** Complete
 - **Dependencies:** None
 - **Deliverable:** Approved release-scope decision recorded in the
   specification.
 - **Acceptance criteria:**
-  - The release explicitly states whether it is Jira-only or includes
-    Confluence.
-  - Any permitted Jira/Confluence write operations are listed.
-  - Read-only source access is distinguished from application persistence.
-  - Non-goals and APIs match the approved scope.
+  - [x] The release explicitly states that it is Jira-only.
+  - [x] No Jira or Confluence source-system write operations are permitted in
+    release one.
+  - [x] Read-only Jira access is distinguished from application persistence.
+  - [x] Non-goals and APIs match the approved scope.
 
 ### T-002 — Define tenant, project, and role model
 

@@ -2,7 +2,8 @@
 
 ## 1. Document Control
 
-- **Status:** Draft for implementation
+- **Status:** Scope baseline approved; implementation remains gated by the
+  remaining clarification decisions
 - **Source:** Module 08 `project_spec.md` and `work/module-08-report.md`
 - **Constitution:** [`spec/constitution.md`](./constitution.md)
 - **Primary users:** Scrum Master and members of a 10-person engineering team
@@ -10,6 +11,17 @@
 - **Product type:** Read-only web application for Jira Cloud sprint health
 - **Technology constraints:** React 18 + Vite, Node.js + Express,
   PostgreSQL 15, Docker/Docker Compose
+
+### Release scope decision
+
+Release one is **Jira-only**. It provides read-only access to one configured
+Jira Cloud project and its active sprint. It does not integrate with Confluence
+and does not write to Jira or Confluence.
+
+The application may write its own operational state, including sessions,
+short-lived cache metadata, configuration, refresh state, and safe telemetry,
+subject to the constitution's retention, authorization, and privacy rules.
+These application writes do not change the source systems.
 
 ## 2. Problem Statement
 
@@ -48,6 +60,8 @@ The first release shall not provide:
 - Near-real-time webhook updates.
 - Mobile-first optimization.
 - Unreviewed destructive writes to Jira or Confluence.
+- Confluence pages, comments, notifications, or other Confluence automation.
+- Jira issue, comment, workflow, label, or link creation/update.
 
 ## 5. Users, Roles, and Access
 
@@ -199,6 +213,10 @@ The system shall allow an authorized user to select or configure the Jira
 project, list accessible projects where applicable, detect the active sprint,
 and show the no-active-sprint state.
 
+Project configuration is application-owned and does not modify Jira. Release
+one permits only the configured project's read access; configuration changes
+must follow the approved application authorization model.
+
 ### FR-02: Sprint timing
 
 The system shall display sprint name, start date, end date, elapsed time, and
@@ -309,6 +327,9 @@ timestamp.
 The backend shall implement server-side OAuth, secure token handling, secure
 session cookies, callback/state validation, authorization checks on every
 Jira-backed request, safe Jira-text encoding, and redacted operational logs.
+
+The backend shall not expose or implement Jira or Confluence write operations
+in release one.
 
 ### FR-14: Observability
 
