@@ -4,18 +4,18 @@ This backlog is ordered for a smallest useful end-to-end MVP first, while preser
 
 ## Setup
 
-- [ ] Confirm the application framework, runtime, package manager, and existing company design-system integration point.
-- [ ] Create the frontend, backend, and shared-types application structure with local development and production configuration.
-- [ ] Define environment variables for Atlassian OAuth, application URL, configured project, Jira field IDs, blocked marker, status mappings, project timezone, stale threshold, cache TTL, and session secret.
-- [ ] Add configuration validation that fails clearly at startup when required secrets, URLs, or Jira settings are missing or invalid.
-- [ ] Define normalized domain types for projects, sprints, issues, statuses/categories, blockers, risk reasons, filters, report metrics, forecast, and structured API errors.
-- [ ] Define the report response contract containing sprint metadata, summary metrics, forecast, blocker/risk rows, filter options, and grouped issue-board data.
-- [ ] Set up secure server-side session handling with encrypted or platform-secured session data and secure, HTTP-only, same-site cookies.
-- [ ] Implement the OAuth authorization-code flow skeleton: login redirect, callback, state generation/validation, error handling, session creation, and logout.
-- [ ] Configure least-privilege Atlassian OAuth scopes for project, sprint, issue, changelog/activity, and issue-link reads.
-- [ ] Add baseline security middleware for HTTPS outside local development, CSRF/state protection where applicable, input validation, and safe Jira-text encoding.
-- [ ] Add structured logging and request correlation without logging OAuth secrets, access tokens, or unnecessary Jira content.
-- [ ] Add a health-check endpoint that reports application availability without exposing configuration secrets.
+- [ ] Confirm the application framework, runtime, package manager, and existing company design-system integration point. (GitHub issue #1)
+- [ ] Create the frontend, backend, and shared-types application structure with local development and production configuration. (GitHub issue #12)
+- [ ] Define environment variables for Atlassian OAuth, application URL, configured project, Jira field IDs, blocked marker, status mappings, project timezone, stale threshold, cache TTL, and session secret. (GitHub issue #10)
+- [ ] Add configuration validation that fails clearly at startup when required secrets, URLs, or Jira settings are missing or invalid. (GitHub issue #5)
+- [ ] Define normalized domain types for projects, sprints, issues, statuses/categories, blockers, risk reasons, filters, report metrics, forecast, and structured API errors. (GitHub issue #11)
+- [ ] Define the report response contract containing sprint metadata, summary metrics, forecast, blocker/risk rows, filter options, and grouped issue-board data. (GitHub issue #2)
+- [ ] Set up secure server-side session handling with encrypted or platform-secured session data and secure, HTTP-only, same-site cookies. (GitHub issue #7)
+- [ ] Implement the OAuth authorization-code flow skeleton: login redirect, callback, state generation/validation, error handling, session creation, and logout. (GitHub issue #3)
+- [ ] Configure least-privilege Atlassian OAuth scopes for project, sprint, issue, changelog/activity, and issue-link reads. (GitHub issue #6)
+- [ ] Add baseline security middleware for HTTPS outside local development, CSRF/state protection where applicable, input validation, and safe Jira-text encoding. (GitHub issue #4)
+- [ ] Add structured logging and request correlation without logging OAuth secrets, access tokens, or unnecessary Jira content. (GitHub issue #8)
+- [ ] Add a health-check endpoint that reports application availability without exposing configuration secrets. (GitHub issue #9)
 
 ## Core Features
 
