@@ -89,3 +89,66 @@ This backlog is ordered for a smallest useful end-to-end MVP first, while preser
 - [ ] Document operational logging/telemetry fields and explicitly prohibited sensitive data.
 - [ ] Create a release checklist linking each acceptance criterion to its validation evidence.
 - [ ] Record the first-release non-goals so historical trends, multi-project reporting, Jira editing, exports, scheduled distribution, long-term snapshots, webhooks, and mobile-first optimization are not accidentally added.
+
+## MCP Server Coverage Classification
+
+Existing MCP servers can provide Atlassian data and basic Jira/Confluence operations. They do not replace application code, deterministic business logic, UI, security, testing, or project documentation.
+
+### Legend
+
+- **MCP** - suitable for an existing Jira/Confluence MCP server.
+- **Custom** - requires application-specific code or skills.
+- **Hybrid** - MCP can provide data, but custom logic is required.
+
+### Setup
+
+| Backlog tasks | Classification |
+| --- | --- |
+| Framework/runtime/package manager/design-system selection; frontend/backend/shared-types structure | Custom |
+| Environment variables, startup validation, normalized domain types, and report response contract | Custom |
+| Secure sessions, cookies, security middleware, logging, request correlation, and health checks | Custom |
+| OAuth authorization-code flow and least-privilege scope configuration | Hybrid |
+
+### Core Features
+
+| Backlog tasks | Classification |
+| --- | --- |
+| Project selection/configuration UI and API | Hybrid |
+| Active-sprint discovery and no-active-sprint state | Hybrid |
+| Sprint timing, status normalization, story-point aggregation, and pace forecast | Custom |
+| Issue-board rendering, blockers table, and at-risk table | Hybrid |
+| Blocker detection from labels/flags and issue links | Hybrid |
+| Risk detection, business-day/timezone calculations, and risk reasons | Custom |
+| Filters, filtered metrics, subset indication, accessibility, responsive styling, and design-system integration | Custom |
+
+### Integration
+
+| Backlog tasks | Classification |
+| --- | --- |
+| Project lookup, sprint lookup, JQL issue search, issue retrieval, and issue field retrieval | MCP |
+| Server-side Jira client/adapter, project and sprint API endpoints | Hybrid |
+| Paginated issue retrieval, changelog/activity, and issue-link retrieval | Hybrid; verify support in the selected server |
+| Aggregated report endpoint | Custom |
+| User-permission enforcement and actionable authorization errors | Hybrid |
+| Rate limits, expired sessions, timeouts, partial responses, structured errors, cache, refresh locking, stale fallback, and telemetry | Custom |
+| Issue-link construction/validation and cloud deployment configuration | Custom |
+
+### Testing
+
+All testing backlog tasks are **Custom**. This includes calculation, mapping, forecast, business-day, risk, blocker, Jira adapter, OAuth/session, API, frontend, integration, acceptance, least-privilege, accessibility, responsive, build, type-check, and lint validation.
+
+### Documentation
+
+All documentation backlog tasks are **Custom**, except Atlassian OAuth documentation, which is **Hybrid**. This includes local setup, project configuration, report API contracts, formulas, risk/blocker semantics, refresh/cache/error behavior, deployment, telemetry, release evidence, and first-release non-goals.
+
+### Recommended MCP Usage
+
+Use **[sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian)** or the official **[Atlassian Rovo MCP Server](https://github.com/atlassian/atlassian-mcp-server)** for:
+
+- Project and sprint lookup
+- JQL issue search and issue retrieval
+- Status, assignee, labels, dates, story points, and custom fields
+- Changelog/activity and issue links, when supported
+- Confluence documentation search and page operations
+
+Keep report aggregation, forecast/risk algorithms, business-day calculations, filtering semantics, caching, refresh behavior, OAuth session management, stale-data handling, UI/accessibility, tests, and release evidence in custom application code.
