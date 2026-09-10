@@ -74,7 +74,7 @@ def build_summary(issues: Iterable[Issue], sprint: Optional[Sprint] = None, last
             committed += points
             if issue.status_category == "Done":
                 completed += points
-        if issue.story_points is None:
+        if points is None or points == 0:
             unestimated_count += 1
         if issue.status_category == "Done":
             issues_completed += 1

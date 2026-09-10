@@ -1,0 +1,20 @@
+{
+  "servers": {
+    "echo": {
+      "command": "python3",
+      "args": [
+        "/Users/Smriti_Kanoujia/workspace/hello-genai/tools/mcp-echo.py"
+      ]
+    },
+    "time": {
+      "command": "python3",
+      "args": [
+        "/Users/Smriti_Kanoujia/workspace/hello-genai/tools/mcp-echo.py"
+      ]
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    }
+  }
+}
