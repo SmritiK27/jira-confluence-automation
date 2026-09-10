@@ -1,0 +1,7 @@
+{
+  "name": "jira-sprint-report",
+  "private": true,
+  "scripts": {
+    "build:frontend": "npm --prefix apps/frontend run build"
+  }
+}

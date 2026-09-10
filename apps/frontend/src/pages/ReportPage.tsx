@@ -1,38 +1,51 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Issue = {
   key: string;
   title: string;
   status: "To Do" | "In Progress" | "Done";
   assignee: string;
+  issueType: string;
+  dueDate?: string;
   points: number;
   risk?: string;
   blocked?: boolean;
 };
 
 const issues: Issue[] = [
-  { key: "KAN-21", title: "OAuth callback handling", status: "Done", assignee: "Ava", points: 5 },
-  { key: "KAN-24", title: "Sprint report API", status: "In Progress", assignee: "Sam", points: 8, blocked: true, risk: "Blocked" },
-  { key: "KAN-27", title: "Responsive dashboard layout", status: "In Progress", assignee: "Maya", points: 5, risk: "Due soon" },
-  { key: "KAN-29", title: "Rate-limit retry policy", status: "To Do", assignee: "Lee", points: 3 },
-  { key: "KAN-31", title: "Accessibility review", status: "To Do", assignee: "Nora", points: 0, risk: "Unestimated" },
+  { key: "KAN-21", title: "OAuth callback handling", status: "Done", assignee: "Ava", issueType: "Story", points: 5 },
+  { key: "KAN-24", title: "Sprint report API", status: "In Progress", assignee: "Sam", issueType: "Story", points: 8, blocked: true, risk: "Unresolved blocker" },
+  { key: "KAN-27", title: "Responsive dashboard layout", status: "In Progress", assignee: "Maya", issueType: "Story", points: 5, dueDate: "12 Sep", risk: "Due soon" },
+  { key: "KAN-29", title: "Rate-limit retry policy", status: "To Do", assignee: "Lee", issueType: "Task", points: 3 },
+  { key: "KAN-31", title: "Accessibility review", status: "To Do", assignee: "Nora", issueType: "Task", points: 0, risk: "Unestimated" },
 ];
 
 const columns: Issue["status"][] = ["To Do", "In Progress", "Done"];
 
 export function ReportPage() {
   const [assignee, setAssignee] = useState("All assignees");
+  const [issueType, setIssueType] = useState("All types");
+  const [status, setStatus] = useState("All statuses");
   const [riskOnly, setRiskOnly] = useState(false);
   const [lastRefresh, setLastRefresh] = useState("Just now");
+
+  const refresh = () => setLastRefresh(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
+
+  useEffect(() => {
+    const timer = window.setInterval(refresh, 5 * 60 * 1000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   const filteredIssues = useMemo(
     () =>
       issues.filter(
         (issue) =>
           (assignee === "All assignees" || issue.assignee === assignee) &&
+          (issueType === "All types" || issue.issueType === issueType) &&
+          (status === "All statuses" || issue.status === status) &&
           (!riskOnly || Boolean(issue.risk)),
       ),
-    [assignee, riskOnly],
+    [assignee, issueType, riskOnly, status],
   );
 
   const completed = filteredIssues.filter((issue) => issue.status === "Done");
@@ -50,7 +63,7 @@ export function ReportPage() {
         </div>
         <div className="topbar-actions">
           <span className="auth-badge"><span className="status-dot" /> Atlassian connected</span>
-          <button className="button button-secondary" onClick={() => setLastRefresh("Just now")}>
+          <button className="button button-secondary" onClick={refresh}>
             Refresh data
           </button>
         </div>
@@ -89,9 +102,9 @@ export function ReportPage() {
                 </div>
                 {filteredIssues.filter((issue) => issue.status === column).map((issue) => (
                   <article className="issue-card" key={issue.key}>
-                    <div className="issue-card-top"><a href={`https://jira.example.com/browse/${issue.key}`}>{issue.key}</a><span className="points">{issue.points || "—"} pts</span></div>
+                            <div className="issue-card-top"><a href={`https://jira.example.com/browse/${issue.key}`}>{issue.key}</a><span className="points">{issue.points || "—"} pts</span></div>
                     <h3>{issue.title}</h3>
-                    <div className="issue-meta"><span>{issue.assignee}</span>{issue.risk && <span className="risk-tag">{issue.risk}</span>}{issue.blocked && <span className="blocked-tag">Blocked</span>}</div>
+                            <div className="issue-meta"><span>{issue.issueType} · {issue.assignee}</span>{issue.dueDate && <span>Due {issue.dueDate}</span>}{issue.risk && <span className="risk-tag">{issue.risk}</span>}{issue.blocked && <span className="blocked-tag">Blocked</span>}</div>
                   </article>
                 ))}
               </div>
@@ -108,9 +121,34 @@ export function ReportPage() {
               <option>Ava</option><option>Sam</option><option>Maya</option><option>Lee</option><option>Nora</option>
             </select>
           </label>
+          <label>
+            Issue type
+            <select value={issueType} onChange={(event) => setIssueType(event.target.value)}>
+              <option>All types</option><option>Story</option><option>Task</option>
+            </select>
+          </label>
+          <label>
+            Status
+            <select value={status} onChange={(event) => setStatus(event.target.value)}>
+              <option>All statuses</option><option>To Do</option><option>In Progress</option><option>Done</option>
+            </select>
+          </label>
           <label className="checkbox-row"><input type="checkbox" checked={riskOnly} onChange={(event) => setRiskOnly(event.target.checked)} /> Show at-risk issues only</label>
           <div className="filter-summary"><strong>Last successful refresh</strong><span>{lastRefresh}</span><small>Automatic refresh every 5 minutes</small></div>
         </aside>
+      </section>
+
+      <section className="detail-grid">
+        <article className="panel detail-panel">
+          <div className="panel-heading"><div><p className="eyebrow">IMPEDIMENTS</p><h2>Blockers</h2></div></div>
+          {filteredIssues.filter((issue) => issue.blocked).map((issue) => <p className="detail-row" key={issue.key}><a href={`https://jira.example.com/browse/${issue.key}`}>{issue.key}</a><span>{issue.title}</span><strong>{issue.risk}</strong></p>)}
+          {!filteredIssues.some((issue) => issue.blocked) && <p className="muted">No blockers in this view.</p>}
+        </article>
+        <article className="panel detail-panel">
+          <div className="panel-heading"><div><p className="eyebrow">DELIVERY RISK</p><h2>At-risk issues</h2></div></div>
+          {filteredIssues.filter((issue) => issue.risk).map((issue) => <p className="detail-row" key={issue.key}><a href={`https://jira.example.com/browse/${issue.key}`}>{issue.key}</a><span>{issue.title}</span><strong>{issue.risk}</strong></p>)}
+          {!filteredIssues.some((issue) => issue.risk) && <p className="muted">No risks in this view.</p>}
+        </article>
       </section>
 
       <footer className="footer">Read-only Jira data · Metrics represent the current sprint view · <a href="https://jira.example.com">Open Jira</a></footer>

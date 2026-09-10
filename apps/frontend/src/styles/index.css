@@ -34,6 +34,7 @@ h3 { font-size: 14px; line-height: 1.4; margin: 10px 0 14px; }
 .metric-card strong { display: block; font-size: 32px; letter-spacing: -.04em; margin: 12px 0 5px; }
 .metric-warning strong { color: #b45309; }
 .content-grid { align-items: start; display: grid; gap: 20px; grid-template-columns: minmax(0, 1fr) 280px; }
+.detail-grid { display: grid; gap: 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 20px; }
 .panel { padding: 24px; }
 .panel-heading { align-items: center; display: flex; justify-content: space-between; margin-bottom: 22px; }
 .board { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
@@ -51,6 +52,7 @@ h3 { font-size: 14px; line-height: 1.4; margin: 10px 0 14px; }
 select { background: white; border: 1px solid #cfd7e4; border-radius: 7px; color: #172033; display: block; margin-top: 8px; padding: 10px; width: 100%; }
 .checkbox-row { align-items: center; display: flex !important; gap: 8px; }.checkbox-row input { accent-color: #3157d5; }
 .filter-summary { border-top: 1px solid #e3e8f0; color: #52627a; display: grid; font-size: 12px; gap: 6px; padding-top: 18px; }.filter-summary span { color: #172033; font-weight: 700; }.filter-summary small { color: #8994a7; }
+.detail-row { align-items: center; border-bottom: 1px solid #edf0f5; display: grid; gap: 10px; grid-template-columns: auto 1fr auto; margin: 0; padding: 12px 0; font-size: 12px; }.detail-row:last-child { border-bottom: 0; }.detail-row strong { color: #9a5b00; font-size: 11px; }
 .footer { color: #8994a7; font-size: 12px; padding-top: 24px; text-align: right; }
 @media (max-width: 900px) { .app-shell { padding: 28px 20px; }.topbar, .content-grid { grid-template-columns: 1fr; flex-direction: column; }.metrics-grid { grid-template-columns: repeat(2, 1fr); }.content-grid { display: grid; }.filters-panel { order: -1; }.topbar-actions { justify-content: flex-start; } }
-@media (max-width: 620px) { .metrics-grid, .board { grid-template-columns: 1fr; }.panel { padding: 17px; }.notice { margin-top: 22px; } }
+@media (max-width: 620px) { .metrics-grid, .board, .detail-grid { grid-template-columns: 1fr; }.panel { padding: 17px; }.notice { margin-top: 22px; } }
